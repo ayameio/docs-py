@@ -47,7 +47,6 @@ print("GEN")
 
 def gen_costs_labels(key, category):
     html = f"""
-
     """
     for c in python_dict[category]['nodes'][key]['cost']:
         html += f"<td>{item_key_map[c]}</td>\n"
@@ -56,23 +55,19 @@ def gen_costs_labels(key, category):
 
 def gen_costs_values(key, category):
     html = f"""
-
     """
     for c in python_dict[category]['nodes'][key]['cost']:
-        html += f"<td>{python_dict[category]['nodes'][key]['cost'][c]}</td>\n"
-    html.strip('\n')
+        html += f"<td>{python_dict[category]['nodes'][key]['cost'][c]}</td>"
     return html
 
 def gen_images(key, category):
     html = f"""
-
     """
     for c in python_dict[category]['nodes'][key]['cost']:
         path = "/assets/images/items/"+c+".png"
         width = "width='64'"
         height = "height='64'"
-        html += f"<td><img src={path} {width} {height}></td>'\n"
-    html.strip('\n')
+        html += f"<td><img src={path} {width} {height}></td>'"
     return html
 
 def remove_empty_lines(text):
@@ -88,15 +83,15 @@ def gen(category):
     }
     html = f"""
     <table>
-	<thead>
-		<tr>
-			<th style="text-align:center;"><p align="center" style="min-width: 96px; min-height: 96px;"><img src="/assets/images/icons/buildHammer.png" width="96" height="96">Building</p></th>
-			<th style="text-align:center;"><p align="center" style="min-width: 96px; min-height: 96px;"><img src="/assets/images/icons/goldCoin.png" width="96" height="96"> Costs</p></th>
-			<th style="text-align:center;"><p align="center" style="min-width: 96px; min-height: 96px;"><img src="/assets/images/icons/stopwatch.png" width="96" height="96"> Build Time</p></th>
-			<th style="text-align:center;"><p align="center" style="min-width: 96px; min-height: 96px;"><img src="/assets/images/icons/sizeIcon.png" width="96" height="96"> Size</p></th>
-			<th style="text-align:center;"><p align="center" style="min-width: 96px; min-height: 96px;"><img src="/assets/images/icons/vibeIcon.png" width="96" height="96"> Vibe</p></th>
-		</tr>
-	</thead>
+    <thead>
+    <tr>
+    <th style="text-align:center;"><p align="center" style="min-width: 96px; min-height: 96px;"><img src="/assets/images/icons/buildHammer.png" width="96" height="96">Building</p></th>
+    <th style="text-align:center;"><p align="center" style="min-width: 96px; min-height: 96px;"><img src="/assets/images/icons/goldCoin.png" width="96" height="96"> Costs</p></th>
+    <th style="text-align:center;"><p align="center" style="min-width: 96px; min-height: 96px;"><img src="/assets/images/icons/stopwatch.png" width="96" height="96"> Build Time</p></th>
+    <th style="text-align:center;"><p align="center" style="min-width: 96px; min-height: 96px;"><img src="/assets/images/icons/sizeIcon.png" width="96" height="96"> Size</p></th>
+    <th style="text-align:center;"><p align="center" style="min-width: 96px; min-height: 96px;"><img src="/assets/images/icons/vibeIcon.png" width="96" height="96"> Vibe</p></th>
+    </tr>
+    </thead>
     """
     for key in python_dict[category]['nodes']:
         
@@ -109,56 +104,49 @@ def gen(category):
         print(image_path)
         # gen_costs(key)
         html += f"""
-        <tbody>
-		<tr>
-			<td>
-            <tr>
-                <td>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>{lab}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div style="width: 128px;"><img
-                                            src="{image_path}" width="256"
-                                            height="256"></div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td>
-                    <table>
-                        <thead>
-                            <tr>
-                                {gen_costs_labels(key, category)}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                {gen_images(key, category)}
-                            </tr>
-                            <tr>
-                                {gen_costs_values(key, category)}
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td>{build_time}</td>
-                <td>{size}</td>
-                <td>{vibe_points}</td>
-            </tr>
-        	</td>
-		</tr>
-		</tbody>
+    <tbody>
+	<tr>
+	<td>
+    <tr>
+    <td>
+    <table>
+    <thead>
+    <tr>
+    <th>{lab}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>
+    <div style="width: 128px;"><img src="{image_path}" width="256" height="256"></div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </td>
+    <td>
+    <table>
+    <thead>
+    <tr>{gen_costs_labels(key, category)}</tr>
+    </thead>
+    <tbody>
+    <tr>{gen_images(key, category)}</tr>
+    <tr>{gen_costs_values(key, category)}</tr>
+    </tbody>
+    </table>
+    </td>
+    <td>{build_time}</td>
+    <td>{size}</td>
+    <td>{vibe_points}</td>
+    </tr>
+    </td>
+	</tr>
+	</tbody>
         """
     html += f"</table>"
+    formatted = remove_empty_lines(html)
     with open(f"{category}.md", "a") as md_file:
-        md_file.write(html)
+        md_file.write(formatted)
         
 gen("goodsProductions")
 gen("decorations")
