@@ -66,8 +66,8 @@ def gen_images(key, category):
     html = ""
     for c in python_dict[category]['nodes'][key]['cost']:
         path = "/assets/images/items/"+c+".png"
-        width = "width='64'"
-        height = "height='64'"
+        width = "width='64px'"
+        height = "height='64px'"
         html += f"""
                                     <td><img src={path} {width} {height}></td>
         """
@@ -79,7 +79,7 @@ def remove_empty_lines(text):
 def gen(category):
     category_paths = {
         "goodsProductions": "/assets/images/buildings/goods/",
-        "materialsProductions": "/assets/images/buildings/materials/",
+        "materialProductions": "/assets/images/buildings/materials/",
         "apartments": "/assets/images/buildings/apartments/",
         "decorations": "/assets/images/buildings/decorations/",
         "gemstoneProductions": "/assets/images/buildings/gemstones/"
